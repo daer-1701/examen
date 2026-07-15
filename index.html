@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Examen DGESTTLA 2026</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="bg-pattern" aria-hidden="true"></div>
+
+  <!-- Pantalla de inicio -->
+  <section id="pantalla-inicio" class="pantalla activa">
+    <div class="inicio-wrap">
+      <p class="marca">DGESTTLA 2026</p>
+      <h1>Banco de preguntas</h1>
+      <p class="inicio-desc">
+        Examen de práctica con <strong>100 preguntas aleatorias</strong> del banco oficial
+        (<span id="total-banco">708</span> ítems). Cada nuevo examen elige un conjunto distinto.
+      </p>
+      <div class="inicio-acciones">
+        <button type="button" class="btn btn-principal" id="btn-iniciar">Iniciar examen</button>
+      </div>
+      <ul class="inicio-notas">
+        <li>4 opciones (A, B, C, D) por pregunta</li>
+        <li>Puedes navegar y cambiar respuestas antes de finalizar</li>
+        <li>Al terminar verás tu puntuación y revisión</li>
+      </ul>
+
+      <section class="historial-bloque" id="historial-inicio" aria-label="Historial de puntuaciones">
+        <div class="historial-cabecera">
+          <h2>Mis puntuaciones</h2>
+          <button type="button" class="btn btn-ghost btn-sm" id="btn-borrar-historial" hidden>Borrar historial</button>
+        </div>
+        <div id="historial-resumen" class="historial-resumen"></div>
+        <div id="historial-lista" class="historial-lista"></div>
+      </section>
+    </div>
+  </section>
+
+  <!-- Pantalla de examen -->
+  <section id="pantalla-examen" class="pantalla">
+    <header class="examen-header">
+      <div class="header-izq">
+        <span class="marca-mini">DGESTTLA</span>
+        <span class="sep">·</span>
+        <span id="contador-pregunta">Pregunta 1 / 100</span>
+      </div>
+      <div class="header-der">
+        <span id="cronometro" class="cronometro" title="Tiempo transcurrido">00:00</span>
+        <button type="button" class="btn btn-ghost" id="btn-mapa">Mapa</button>
+      </div>
+    </header>
+
+    <div class="barra-progreso" aria-hidden="true">
+      <div id="progreso-fill" class="progreso-fill"></div>
+    </div>
+
+    <main class="examen-main">
+      <p class="meta-pregunta" id="meta-pregunta"></p>
+      <h2 class="enunciado" id="enunciado"></h2>
+      <div class="opciones" id="opciones" role="radiogroup" aria-label="Opciones de respuesta"></div>
+    </main>
+
+    <footer class="examen-footer">
+      <button type="button" class="btn btn-secundario" id="btn-anterior" disabled>Anterior</button>
+      <div class="footer-centro">
+        <span id="respondidas-info">0 respondidas</span>
+      </div>
+      <button type="button" class="btn btn-principal" id="btn-siguiente">Siguiente</button>
+    </footer>
+  </section>
+
+  <!-- Mapa de preguntas -->
+  <dialog id="dialog-mapa" class="dialog-mapa">
+    <form method="dialog" class="mapa-inner">
+      <header class="mapa-header">
+        <h3>Mapa del examen</h3>
+        <button type="submit" class="btn btn-ghost" value="close">Cerrar</button>
+      </header>
+      <div id="mapa-grid" class="mapa-grid"></div>
+      <p class="mapa-leyenda">
+        <span class="dot answered"></span> Respondida
+        <span class="dot current"></span> Actual
+        <span class="dot"></span> Pendiente
+      </p>
+    </form>
+  </dialog>
+
+  <!-- Confirmación finalizar -->
+  <dialog id="dialog-fin" class="dialog-fin">
+    <div class="dialog-inner">
+      <h3>¿Finalizar examen?</h3>
+      <p id="aviso-sin-responder"></p>
+      <div class="dialog-acciones">
+        <button type="button" class="btn btn-secundario" id="btn-cancelar-fin">Seguir</button>
+        <button type="button" class="btn btn-principal" id="btn-confirmar-fin">Finalizar</button>
+      </div>
+    </div>
+  </dialog>
+
+  <!-- Resultados -->
+  <section id="pantalla-resultado" class="pantalla">
+    <div class="resultado-wrap">
+      <p class="marca">Resultado</p>
+      <h1 id="puntaje-numero">0 / 100</h1>
+      <p class="puntaje-pct" id="puntaje-pct">0%</p>
+      <p class="resultado-meta" id="resultado-meta"></p>
+      <div class="resultado-acciones">
+        <button type="button" class="btn btn-principal" id="btn-revisar">Revisar respuestas</button>
+        <button type="button" class="btn btn-secundario" id="btn-nuevo">Nuevo examen</button>
+        <button type="button" class="btn btn-ghost" id="btn-ver-historial">Ver historial</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Revisión -->
+  <section id="pantalla-revision" class="pantalla">
+    <header class="examen-header">
+      <div class="header-izq">
+        <span class="marca-mini">Revisión</span>
+        <span class="sep">·</span>
+        <span id="rev-contador">Pregunta 1 / 100</span>
+      </div>
+      <button type="button" class="btn btn-ghost" id="btn-salir-revision">Salir</button>
+    </header>
+    <main class="examen-main revision-main">
+      <p class="meta-pregunta" id="rev-meta"></p>
+      <h2 class="enunciado" id="rev-enunciado"></h2>
+      <div class="opciones" id="rev-opciones"></div>
+      <p class="rev-fuente" id="rev-fuente"></p>
+    </main>
+    <footer class="examen-footer">
+      <button type="button" class="btn btn-secundario" id="btn-rev-anterior" disabled>Anterior</button>
+      <div class="footer-centro">
+        <span id="rev-estado"></span>
+      </div>
+      <button type="button" class="btn btn-principal" id="btn-rev-siguiente">Siguiente</button>
+    </footer>
+  </section>
+
+  <div id="carga" class="carga">
+    <div class="carga-spinner"></div>
+    <p>Cargando banco de preguntas…</p>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
