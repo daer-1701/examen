@@ -458,6 +458,32 @@ body {
   color: #fff;
 }
 
+.opcion:disabled {
+  cursor: default;
+  opacity: 1;
+}
+
+.feedback {
+  margin-top: 1.25rem;
+  padding: 1rem 1.1rem;
+  border-radius: var(--radius);
+  font-size: 1rem;
+  line-height: 1.45;
+  animation: fadeIn 0.25s ease;
+}
+
+.feedback.ok {
+  background: rgba(21, 122, 60, 0.12);
+  border: 1.5px solid rgba(21, 122, 60, 0.4);
+  color: #14532d;
+}
+
+.feedback.bad {
+  background: rgba(185, 28, 28, 0.1);
+  border: 1.5px solid rgba(185, 28, 28, 0.35);
+  color: #7f1d1d;
+}
+
 .examen-footer {
   position: fixed;
   bottom: 0;
@@ -651,6 +677,18 @@ body {
 .carga.oculta {
   opacity: 0;
   pointer-events: none;
+}
+
+.carga.con-error .carga-spinner {
+  display: none;
+}
+
+.carga.con-error p {
+  max-width: 28rem;
+  text-align: center;
+  color: var(--bad);
+  font-weight: 600;
+  padding: 0 1rem;
 }
 
 .carga-spinner {
