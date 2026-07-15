@@ -19,15 +19,22 @@
       <h1>Banco de preguntas</h1>
       <p class="inicio-desc">
         Examen de práctica con <strong>100 preguntas aleatorias</strong> del banco oficial
-        (<span id="total-banco">708</span> ítems). Cada nuevo examen elige un conjunto distinto.
+        (<span id="total-banco">708</span> ítems). Sin límite de tiempo: tu avance se guarda solo.
       </p>
+
+      <div id="aviso-progreso" class="aviso-progreso" hidden>
+        <p class="aviso-titulo">Examen en curso</p>
+        <p id="progreso-detalle" class="aviso-detalle"></p>
+      </div>
+
       <div class="inicio-acciones">
-        <button type="button" class="btn btn-principal" id="btn-iniciar">Iniciar examen</button>
+        <button type="button" class="btn btn-principal" id="btn-continuar" hidden>Continuar donde me quedé</button>
+        <button type="button" class="btn btn-secundario" id="btn-iniciar">Iniciar examen</button>
       </div>
       <ul class="inicio-notas">
-        <li>4 opciones (A, B, C, D) por pregunta</li>
-        <li>Puedes navegar y cambiar respuestas antes de finalizar</li>
-        <li>Al terminar verás tu puntuación y revisión</li>
+        <li>Sin cronómetro: puedes tomarte el tiempo que necesites</li>
+        <li>El progreso se guarda al responder o al salir</li>
+        <li>Al finalizar verás tu puntuación y podrás revisar</li>
       </ul>
 
       <section class="historial-bloque" id="historial-inicio" aria-label="Historial de puntuaciones">
@@ -50,7 +57,7 @@
         <span id="contador-pregunta">Pregunta 1 / 100</span>
       </div>
       <div class="header-der">
-        <span id="cronometro" class="cronometro" title="Tiempo transcurrido">00:00</span>
+        <button type="button" class="btn btn-ghost" id="btn-salir">Salir</button>
         <button type="button" class="btn btn-ghost" id="btn-mapa">Mapa</button>
       </div>
     </header>
